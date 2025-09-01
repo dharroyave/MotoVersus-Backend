@@ -32,9 +32,9 @@ correo: {
 numero:{
     type:Number,
     required: true
-},
+}
 
 
 }); 
 
-export const Modelodeusuario = mongoose.model("Usuarios", usuarioSchema);
+export const usuarioModel = mongoose.model("Usuarios", usuarioSchema);

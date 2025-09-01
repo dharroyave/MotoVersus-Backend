@@ -11,8 +11,8 @@ const categoriaSchema = new mongoose.Schema({
 
  descripcion: {
     type:String,
- },
+ }
 
 }); 
 
-export const categoriaModel = mongoose.model("Categorias", categoriaSchemaSchema);
+export const categoriaModel = mongoose.model("Categorias", categoriaSchema);

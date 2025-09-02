@@ -16,5 +16,5 @@ app.get('/', (req, res) => {
 
 //4. Levantamos el servidor
 app.listen(PORT, () => {
-    console.log(`Servidor ejecutandose en el http://localhost${PORT}`);
+    console.log(`Servidor ejecutandose en el http://localhost:${PORT}`);
 });

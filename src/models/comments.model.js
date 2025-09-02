@@ -4,24 +4,19 @@ import mongoose from "mongoose";
 //2. Definimos el esquema (estructura) del documento
 const comentarioSchema = new mongoose.Schema({
 
- texto: {
+  texto: {
     type: String,
     required: true
   },
   usuario: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Usuarios",
     required: true
   },
   fecha: {
     type: Date,
     default: Date.now
-  },
-  calificacion: {
-    type: Number,
-    min: 1,
-    max: 5,
   }
-
-}); 
+});
 
 export const comentarioModel = mongoose.model("Comentarios", comentarioSchema);

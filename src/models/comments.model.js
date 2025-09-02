@@ -1,7 +1,7 @@
-
+//1. importamos mongoose
 import mongoose from "mongoose";
 
-
+//2. Definimos el esquema (estructura) del documento
 const comentarioSchema = new mongoose.Schema({
 
  texto: {

@@ -2,10 +2,9 @@
 
 Galería web visual para comparar motos y tomar mejores decisiones de compra.
 
-## ✨ Descripción
+## ✨ Descripción general
 
-motoversus es una plataforma pensada para quienes buscan su primera moto o desean conocer distintos modelos. La página muestra una galería de imágenes de motos en tres categorías principales: **Deportivas🏁**, **Enduro🌄** y **Automáticas🛵**. Los usuarios pueden visualizar detalles, comparar precios y características clave de cada modelo, facilitando la exploración y elección de la moto ideal para principiantes o nuevos aficionados.
-
+Motoversus es una plataforma diseñada para personas nuevas en el mundo de las motos o quienes desean adquirir una moto por primera vez. Los usuarios pueden explorar imágenes, comparar características técnicas y precios de motos clasificadas en categorías: **Deportivas**, **Enduro** y **Automáticas**. El sistema facilita la decisión de compra a través de una experiencia visual y comparativa simple.
 ## 🎯 Público Objetivo
 
 - Personas nuevas en el mundo de las motos 🤓
@@ -26,6 +25,60 @@ motoversus es una plataforma pensada para quienes buscan su primera moto o desea
 - **Enduro 🌄**: Motos versátiles para uso mixto, aventura y rutas difíciles
 - **Automáticas 🛵**: Motos fáciles de manejar, ideales para ciudad y trayectos cortos
 
+
+## 📦 Requisitos previos
+
+- Node.js y NPM instalados
+- MongoDB local o remoto
+- Variables de entorno configuradas (`BD_URL` y `PORT`)
+- Dependencias principales:
+  - express
+  - mongoose
+  - dotenv
+  - nodemon (desarrollo)
+
 ## 💡 ¿Cómo comenzar?
 
-Solo accede a la página principal, explora las imágenes y compara tus opciones favoritas. La experiencia está optimizada para descubrir, aprender y decidir, incluso si es tu primera vez comprando una moto.
+1. **Clona el repositorio**
+
+git clone <URL_DEL_REPOSITORIO>
+cd motoversus-backend
+
+2. **Instala dependencias**
+
+npm install
+
+3. **Configura el archivo `.env`**
+
+BD_URL=<tu_ruta_de_mongodb> **--la cual se te debio compartir previamente--**
+PORT=3000
+
+4. **Inicia el servidor**
+- Para desarrollo:
+    npm run dev
+
+- Para producción:
+    npm start
+
+5. **Verificación**
+- Accede a `http://localhost:3000` (o el puerto configurado) y verifica el mensaje de bienvenida.
+
+
+## 🗃️ Modelado de datos
+
+- **Usuario**: nombre, apellido, usuario, contraseña, correo, número
+- **Producto**: nombre, cilindraje, motor, potencia, transmisión, peso, precio, imagen, categoría
+- **Comentario**: texto, usuario, fecha, calificación
+
+
+## 👥 Autores
+
+- Duvan Arroyave
+- Nicol Cortes
+- Duwar Rippe
+
+## 📧 Información de contacto
+
+https://github.com/dharroyave
+https://github.com/Duwar
+https://github.com/nicolcortes-angel

@@ -32,7 +32,11 @@ const usuarioSchema = new mongoose.Schema({
     numero: {
         type: Number,
         required: true
-    }
+    },
+    fotoPerfil: {
+        type: String,
+        default: http://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg
+    },
 });
 
 export const usuarioModel = mongoose.model("Usuarios", usuarioSchema);

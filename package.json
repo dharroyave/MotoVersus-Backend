@@ -9,12 +9,13 @@
   },
   "license": "ISC",
   "keywords": [],
-  "author": "Grupo 2", 
+  "author": "Grupo 2",
   "description": "Proyecto Final - Bootcamp Desarrollo Web full stack - BIT",
   "dependencies": {
-    "dotenv": "^17.2.1",
+    "dotenv": "^17.2.2",
     "express": "^5.1.0",
-    "mongoose": "^8.18.0"
+    "mongoose": "^8.18.0",
+    "moongose": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

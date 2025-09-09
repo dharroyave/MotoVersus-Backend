@@ -22,7 +22,7 @@ export const postProduct = async (req, res) => {
 
 export const getAllProducts = async (req, res) => {
     try {
-        const allProducts = await comentarioModel.find();
+        const allProducts = await comentarioModel.find().populate("usuario","nombre fotoPerfil");
         return res.status(200).json({
             "mensaje": "Se encontraron todos los comentarios!",
             "data": allProducts

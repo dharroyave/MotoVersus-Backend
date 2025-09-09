@@ -1,6 +1,6 @@
 //1. importacion de dependecias y modulos 
 import express from "express"; 
-import { postProduct, getProducts, putProduct, deleteProductById } from "../controller/products.controller.js";
+import { postProduct, getProducts, putProduct, deleteProductById } from "../controllers/products.controller.js";
 
 
 //2. Configurar las rutas 

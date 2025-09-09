@@ -10,7 +10,7 @@ const usuarioSchema = new mongoose.Schema({
         required: true
     },
     apellido: {
-        tyoe: String,
+        type: String,
         required: true
     },
 

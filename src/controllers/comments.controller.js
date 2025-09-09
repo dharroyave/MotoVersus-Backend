@@ -5,7 +5,7 @@ import { comentarioModel } from "../models/comments.model.js";
 //Definir las aciones que van a realizar - CRUD
 
 //1. Metodo para Crear un producto -> POST
-export const postProduct = async (req, res) => {
+export const postComment = async (req, res) => {
     try {
         await comentarioModel.create(req.body);
         return res.status(201).json({
@@ -20,7 +20,7 @@ export const postProduct = async (req, res) => {
     }
 };
 
-export const getAllProducts = async (req, res) => {
+export const getAllComments = async (req, res) => {
     try {
         const allProducts = await comentarioModel.find().populate("usuario","nombre fotoPerfil");
         return res.status(200).json({
@@ -35,7 +35,7 @@ export const getAllProducts = async (req, res) => {
     }
 };
 
-export const putProductById = async (req, res) => {
+export const putCommentById = async (req, res) => {
       try {
         const idForUpdate = req.params.id;
         const dataForUpdate = req.body;
@@ -52,7 +52,7 @@ export const putProductById = async (req, res) => {
     }
 }
 
-export const deleteProductById = async(req, res) => {
+export const deleteCommentById = async(req, res) => {
       try {
         const idForDelet = req.params.id;
         await comentarioModel.findByIdAndDelete(idForDelet);

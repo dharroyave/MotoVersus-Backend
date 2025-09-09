@@ -1,12 +1,12 @@
 import express from 'express';
-import { getAllProducts, postProduct, putProductById, deleteProductById } from '../controllers/comments.controller.js';
+import { getAllComments, postComment, putCommentById, deleteCommentById } from '../controllers/comments.controller.js';
 
 export const commentRouter = express.Router();
 
-commentRouter.post('/crear',postProduct);
+commentRouter.post('/crear',postComment);
 
-commentRouter.get('/mostrar', getAllProducts);
+commentRouter.get('/mostrar', getAllComments);
 
-commentRouter.put('/actualizar/:id', putProductById);
+commentRouter.put('/actualizar/:id', putCommentById);
 
-commentRouter.delete('/eliminar/:id', deleteProductById);
+commentRouter.delete('/eliminar/:id', deleteCommentById);

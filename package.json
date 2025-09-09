@@ -12,7 +12,8 @@
   "author": "Grupo 2",
   "description": "Proyecto Final - Bootcamp Desarrollo Web full stack - BIT",
   "dependencies": {
-    "dotenv": "^17.2.2",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "mongoose": "^8.18.0",
     "moongose": "^1.0.0"

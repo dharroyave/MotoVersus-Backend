@@ -5,6 +5,7 @@ import { conexionMongo } from './src/config/db.js';
 import { userRouter } from './src/routes/users.routes.js'; 
 import {commentRouter} from './src/routes/comments.routes.js';
 import { productRouter } from "./src/routes/products.routes.js";
+import cors from 'cors';
 
 // 2. Importamos la configuración de la base de datos
 const app = express();
@@ -17,6 +18,7 @@ app.get('/', (request, response) => {
     response.send('Bienvenido a MotoVersus');
 });
 
+app.use(cors()); // Middleware para habilitar CORS
 app.use(express.json()); // Middleware para parsear JSON
 app.use('/users', userRouter); // Middleware para las rutas de usuarios
 app.use('/comments', commentRouter);

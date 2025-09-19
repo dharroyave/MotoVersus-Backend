@@ -1,13 +1,15 @@
 //1. importacion de dependecias y modulos 
 import express from "express"; 
 import { postProduct, getProducts, putProduct, deleteProductById } from "../controllers/products.controller.js";
+import { auth } from "../middleware/auth.js";
+import { upload } from "../config/multer.js";
 
 
 //2. Configurar las rutas 
 export const productRouter = express.Router();
 
 //3. Ruta para el POST 
-productRouter.post("/crear", postProduct);
+productRouter.post("/crear", auth("admin"), upload.single("image"), postProduct);
 
 //3. Ruta para el GET
 productRouter.get("/mostrar", getProducts);

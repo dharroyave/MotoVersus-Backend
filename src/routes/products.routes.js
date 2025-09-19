@@ -15,7 +15,7 @@ productRouter.post("/crear", auth("admin"), upload.single("image"), postProduct)
 productRouter.get("/mostrar", getProducts);
 
 //3. Ruta para el PUT
-productRouter.put("/actualizar/:id", putProduct);
+productRouter.put("/actualizar/:id", auth("admin"),putProduct);
 
 //3. Ruta para el DELETE
-productRouter.delete("/eliminar/:id", deleteProductById);
+productRouter.delete("/eliminar/:id", auth("admin"),deleteProductById);

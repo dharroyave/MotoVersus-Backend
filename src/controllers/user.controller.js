@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs";
 // 1. Crear un usuario (POST)
 export const potUsers = async (request, response) => {
     try {
-        const { nombre, apellido, user, contrasena, correo, numero, fotoPerfil } = request.body;
+        const { nombre, apellido, user, contrasena, correo, numero, fotoPerfil, role } = request.body;
         const codedPassword = await bcryptjs.hash(contrasena, 10);
 
         await usuarioModel.create({
@@ -14,7 +14,8 @@ export const potUsers = async (request, response) => {
             contrasena: codedPassword,
             correo,
             numero,
-            fotoPerfil
+            fotoPerfil,
+            role
         })
         return response.status(201).json({
             "mensaje": "Usuario creado correctamente"
@@ -49,8 +50,9 @@ export const getAllUsers = async (request, response) => {
 export const putUserById = async (request, response) => {
     try {
         const idForUpdate = request.params.id;
-        const dataForUpdate = request.body;
-        await usuarioModel.findByIdAndUpdate(idForUpdate, dataForUpdate);
+        const { nombre, apellido, user, contrasena, correo, numero, fotoPerfil,role } = request.body;
+        const codedPassword = await bcryptjs.hash(contrasena, 10);
+        await usuarioModel.findByIdAndUpdate(idForUpdate, {nombre, apellido, user, contrasena: codedPassword, correo, numero, fotoPerfil,role});
         return response.status(200).json({
             "mensaje": "Usuario actualizado correctamente"
         });

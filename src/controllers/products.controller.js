@@ -12,6 +12,10 @@ try {
             "mensaje": "Producto creado correctamente"
         });
 
+
+
+        
+
     } catch (error) {
         return response.status(400).json({
             "mensaje": "Ocurrió un error al crear producto",
@@ -39,6 +43,25 @@ export const getProducts = async (request, response) => {
         })
     }
 }
+
+// 2.1 METODO PARA MOSTRAR UN PRODUCTO POR CATEGORY = GET
+export const getProductsbyCategory = async (request, response) => {
+ try {
+        const category = request.params.category;
+        const productsByCategory = await productoModel.find({categoria: category});
+
+        return response.status(200).json({
+            "mensaje": "Petición exitosa",
+            "data": productsByCategory
+        })
+    } catch (error) {
+        return response.status(500).json({
+            "mensaje": "Ocurrió un error al mostrar productos por categoría",
+            "error": error.message || error
+        })
+    }
+}
+
 
 // 3. METODO PARA ACTUALIZAR UN PRODUCTO = PUT
 export const putProduct = async (request, response) => {

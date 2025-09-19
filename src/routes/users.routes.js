@@ -7,6 +7,6 @@ export const userRouter = express.Router();
 
 // 3. definir las rutas
 userRouter.post("/crear", potUsers);
-userRouter.get("/mostrar", getAllUsers);
+userRouter.get("/mostrar", auth("admin"), getAllUsers);
 userRouter.put("/actualizar/:id", putUserById);
-userRouter.delete("/eliminar/:id",auth("admin"), deleteUserById);
+userRouter.delete("/eliminar/:id", deleteUserById);

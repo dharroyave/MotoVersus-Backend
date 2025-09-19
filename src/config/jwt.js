@@ -17,7 +17,7 @@ export const generateToken = (payload) => {
     return new Promise((resolve, reject) => {
         JsonWebToken.sign(payload, key, {expiresIn: "1h"}, (error, token) => {
             if(error) {
-                reject (new Error("Hubo un error al generar el JWT", error.message))
+                reject (new Error("Hubo un error al generar el JWT" + error.message))
             } else {
                 resolve(token);
             }
@@ -32,7 +32,7 @@ export const verifyToken = (token) => {
     return new Promise((resolve, reject) => {
         JsonWebToken.verify(token, key, (error, decoded) => {
             if(error) {
-                reject (new Error("Hubo un error al verificar el JWT", error.message))
+                reject (new Error("Hubo un error al verificar el JWT" + error.message))
             } else {
                 resolve(decoded);
             }

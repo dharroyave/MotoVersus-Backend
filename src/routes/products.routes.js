@@ -1,6 +1,6 @@
 //1. importacion de dependecias y modulos 
 import express from "express"; 
-import { postProduct, getProducts, putProduct, deleteProductById } from "../controllers/products.controller.js";
+import { postProduct, getProducts, putProduct, deleteProductById, getProductsbyCategory } from "../controllers/products.controller.js";
 import { auth } from "../middleware/auth.js";
 import { upload } from "../config/multer.js";
 
@@ -13,6 +13,8 @@ productRouter.post("/crear", auth("admin"), upload.single("image"), postProduct)
 
 //3. Ruta para el GET
 productRouter.get("/mostrar", getProducts);
+
+productRouter.get("/mostrar/:category", getProductsbyCategory);
 
 //3. Ruta para el PUT
 productRouter.put("/actualizar/:id", auth("admin"),putProduct);

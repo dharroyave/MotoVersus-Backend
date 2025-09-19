@@ -20,7 +20,7 @@ export const postComment = async (req, res) => {
     }
 };
 
-export const getAllComments = async (res) => {
+export const getAllComments = async (req, res) => {
     try {
         const allComments = await comentarioModel.find().populate("usuario","nombre fotoPerfil");
         return res.status(200).json({

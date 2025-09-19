@@ -8,7 +8,7 @@ export const login = async (request, response) => {
     const {emailLogin, passwordLogin} = request.body;
 
     const userFound = await usuarioModel.findOne({
-        email: emailLogin
+        correo: emailLogin
 
     });
 
@@ -20,7 +20,7 @@ export const login = async (request, response) => {
         });
     }
 
-    const validPassword = await bcryptjs.compare(passwordLogin, userFound.password);
+    const validPassword = await bcryptjs.compare(passwordLogin, userFound.contrasena);
  
       if(!validPassword){
         return response.status(401).json({

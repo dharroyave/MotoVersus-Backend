@@ -36,6 +36,11 @@ const usuarioSchema = new mongoose.Schema({
     fotoPerfil: {
         type: String,
         default: "http://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    },
+        role:{
+        type: String,
+        enum:["admin", "user"],
+        required: true         
     }
 });
 

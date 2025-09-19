@@ -33,9 +33,9 @@ export const getAllUsers = async (request, response) => {
     try {
         const allUsers = await usuarioModel.find();
         return response.status(200).json({
-            "mensaje":"Petición Exitosa",
-            "data":allUsers
-    });
+            "mensaje": "Petición Exitosa",
+            "data": allUsers
+        });
 
     } catch (error) {
         return response.status(400).json({

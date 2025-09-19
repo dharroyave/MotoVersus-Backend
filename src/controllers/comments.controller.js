@@ -20,12 +20,12 @@ export const postComment = async (req, res) => {
     }
 };
 
-export const getAllComments = async (req, res) => {
+export const getAllComments = async (res) => {
     try {
-        const allProducts = await comentarioModel.find().populate("usuario","nombre fotoPerfil");
+        const allComments = await comentarioModel.find().populate("usuario","nombre fotoPerfil");
         return res.status(200).json({
             "mensaje": "Se encontraron todos los comentarios!",
-            "data": allProducts
+            "data": allComments
         });
     } catch (error) {
         return res.status(500).json({
@@ -50,7 +50,7 @@ export const putCommentById = async (req, res) => {
             "error": error.message || error
         })
     }
-}
+};
 
 export const deleteCommentById = async(req, res) => {
       try {
@@ -66,4 +66,4 @@ export const deleteCommentById = async(req, res) => {
             "error": error.message || error
         })
     }
-}
+};

@@ -35,6 +35,8 @@ Motoversus es una plataforma diseñada para personas nuevas en el mundo de las m
   - express
   - mongoose
   - dotenv
+  - multer
+  - JsonWebToken
   - nodemon (desarrollo)
 
 ## 💡 ¿Cómo comenzar?

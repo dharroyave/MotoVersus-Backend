@@ -16,6 +16,11 @@ const comentarioSchema = new mongoose.Schema({
   fecha: {
     type: Date,
     default: Date.now
+  },
+  motos: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Productos",
+    required: true
   }
 });
 

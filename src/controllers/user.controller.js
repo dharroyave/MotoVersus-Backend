@@ -46,6 +46,22 @@ export const getAllUsers = async (request, response) => {
     }
 };
 
+//2.1 Obtener un usuario por ID (GET)
+export const getUserById = async (request, response) => {
+    try {
+        const idForSearch = request.params.id;  
+        const userById = await usuarioModel.findById(idForSearch).select('-contrasena');
+        return response.status(200).json({
+            "mensaje": "Petición Exitosa",
+            "data": userById
+        });
+    } catch (error) {
+        return response.status(400).json({
+            "mensaje": "ocurrio un error al mostrar el usuario",
+            "error": error.message || error
+        });
+    }
+};
 // 3. Actualizar un usuario por ID (PUT)
 export const putUserById = async (request, response) => {
     try {

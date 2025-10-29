@@ -13,7 +13,7 @@ const productoSchema = new mongoose.Schema({
         required: true
     },
     cilindraje: {
-        type: Number,
+        type: String,
         required: true
     },
     motor: {
@@ -29,11 +29,11 @@ const productoSchema = new mongoose.Schema({
         required: true
     },
     peso: {
-        type: Number,
+        type: String,
         required: true
     },
     precio: {
-        type: Number,
+        type: String,
         required: true
     },
     imagenUrl: {

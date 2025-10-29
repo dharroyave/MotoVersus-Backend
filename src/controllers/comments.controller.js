@@ -22,7 +22,7 @@ export const postComment = async (req, res) => {
 
 export const getAllComments = async (req, res) => {
     try {
-        const allComments = await comentarioModel.find().populate("usuario","nombre fotoPerfil");
+        const allComments = await comentarioModel.find().populate("usuario", "nombre fotoPerfil");
         return res.status(200).json({
             "mensaje": "Se encontraron todos los comentarios!",
             "data": allComments
@@ -35,11 +35,31 @@ export const getAllComments = async (req, res) => {
     }
 };
 
+
+export const getCommentsByUserId = async (req, res) => {
+    try {
+        const { usuarioId } = req.params;
+
+        const comentarios = await comentarioModel.find({ usuario: usuarioId })
+            .populate('usuario', 'nombre email')
+            .populate('motos', 'nombre modelo');
+
+        if (!comentarios.length) {
+            return res.status(404).json({ mensaje: "No hay comentarios para este usuario" });
+        }
+
+        res.status(200).json(comentarios);
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error al obtener los comentarios del usuario", error });
+    }
+};
+
+
 export const putCommentById = async (req, res) => {
-      try {
+    try {
         const idForUpdate = req.params.id;
         const dataForUpdate = req.body;
-        await comentarioModel.findByIdAndUpdate(idForUpdate,dataForUpdate);
+        await comentarioModel.findByIdAndUpdate(idForUpdate, dataForUpdate);
         return res.status(200).json({
             "mensaje": "Comentario actualizado correctamente!"
         });
@@ -52,8 +72,8 @@ export const putCommentById = async (req, res) => {
     }
 };
 
-export const deleteCommentById = async(req, res) => {
-      try {
+export const deleteCommentById = async (req, res) => {
+    try {
         const idForDelet = req.params.id;
         await comentarioModel.findByIdAndDelete(idForDelet);
         return res.status(200).json({

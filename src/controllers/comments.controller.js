@@ -42,7 +42,7 @@ export const getCommentsByUserId = async (req, res) => {
 
         const comentarios = await comentarioModel.find({ usuario: usuarioId })
             .populate('usuario', 'nombre email')
-            .populate('motos', 'nombre modelo');
+            
 
         if (!comentarios.length) {
             return res.status(404).json({ mensaje: "No hay comentarios para este usuario" });

@@ -1,67 +1,56 @@
 import multer from "multer";
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url"; 
+import path from "path"; //modulo nativo de node
+import fs from "fs"; //modulo nativo de node
+import { fileURLToPath } from "url"; //modulo nativo de node
 
-//desarollo de la configuracion de las funcionalidades 
-const _filename = fileURLToPath(import.meta.url); //me permite ubicarme y convertir el archivo en una ruta, es decir este codigo significa que filename = backend/src/config/multer.js
-const _dirname = path.dirname(_filename); //es para saber cual es la organzacion y estructura de las carpetas 
-
-//1. crear una carpeta donde se guarden los archivos subidos 
-
-const UPLOADS_FOLDER = path.join( _dirname, "../uploads");
-
-if(!fs.existsSync(UPLOADS_FOLDER)){
- fs.mkdirSync(UPLOADS_FOLDER)
+// 2. configuración de multer - desarrollo de funcionalidades
+const _filename = fileURLToPath(import.meta.url); //_filename -> ruta completa del archivo actual (backend/src/config/multer.js)
+const _dirname = path.dirname(_filename); //_dirname -> ruta de la carpeta actual (backend/src/config)
 
 
+// 1.crear la carpeta para almacenar los archivos si no existe
+const UPLOADS_FOLDER = path.join(_dirname, "../uploads");
+
+// si la carpeta no existe, crearla
+if (!fs.existsSync(UPLOADS_FOLDER)) {
+    fs.mkdirSync(UPLOADS_FOLDER);
 }
 
-
-
-
-// 2. Especificar como lo vamos a guardar
-
-
-const storage = multer.diskStorage({
+// 2.expesificar el destino y el nombre del archivo
+export const storage = multer.diskStorage({
     destination: (req, file, cb) => {
+        // donde se van a guardar los archivos
         cb(null, UPLOADS_FOLDER);
     },
     filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-    const base = path.basename(file.originalname, ext).replace(/\s+/g, "_");
-    cb(null, `${base}-${Date.now()}${ext}`);
-    }
+        // cómo se van a llamar los archivos
+        const ext = path.extname(file.originalname); //obtener la extensión del archivo -> .jpg, .png, .pdf
+        const base = path.basename(file.originalname, ext).replace(/\s+/g, "_"); //obtener el nombre del archivo sin la extensión y reemplazar espacios por guiones bajos
+        cb(null, `${base}-${Date.now()}${ext}`); //nombre del archivo + fecha actual + extensión
+    },
 });
 
+// 3.expesificar el tipo de archivo que se va a permitir subir al servidor
+const fileFilter = (req, file, cb) => {
+    const allowed = ["image/gif", "image/jpeg","image/png","image/svg+xml","image/webp"]; //tipos de archivos permitidos
 
+    if (allowed.includes(file.mimetype)) {
+        cb(null, true); //aceptar el archivo si es permitido, lo guarda en la carpeta uploads
+    } else {
+        cb(new Error("Tipo de archivo no permitido"), false); //rechazar el archivo si no es permitido
+    }
+};
 
-
-// 3. Que tipo de archivo vamos a recibir 
-const filefilter = (req,file, cb) => {
-     const allowed = ["image/gif", "image/jpeg", "image/png", "image/svg+xml", "image/webp"];
-
- if (allowed.includes(file.mimetype)){
-    cb(null, true) // significa que si el archivo es poermitido lo guarde en la carpeta uploads 
-
- } else {
-    cb(new Error("El archivo no es permitido"), false);
- }
-
-}
-
-
-// 4. definir limites - tamaño de archivo 
-
+// 4.definir el tamaño máximo del archivo que se va a permitir subir al servidor
 const limits = {
-     fileSize: 5*1024*1024 //5MB
-}
+    fileSize: 1024 * 1024 * 5, //tamaño máximo del archivo en bytes (5MB)
+};
 
+// 5.exportar las características de multer
+export const upload = multer({
+    storage,
+    fileFilter,
+    limits,
+}); // el unico obligatorio es storage, los otros dos son opcionales
 
-
-
-
-
-//5. Exportar esas caracteristicas
-export const upload = multer({storage, filefilter, limits})
 

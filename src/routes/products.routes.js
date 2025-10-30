@@ -9,7 +9,7 @@ import { upload } from "../config/multer.js";
 export const productRouter = express.Router();
 
 //3. Ruta para el POST 
-productRouter.post("/crear", auth("admin"), upload.single("image"), postProduct);
+productRouter.post("/crear", auth("admin"), upload.single("imagenUrl"), postProduct);
 
 //3. Ruta para el GET
 productRouter.get("/mostrar", getProducts);
@@ -17,7 +17,7 @@ productRouter.get("/mostrar", getProducts);
 productRouter.get("/mostrar/:category", getProductsbyCategory);
 
 //3. Ruta para el PUT
-productRouter.put("/actualizar/:id", auth("admin"),putProduct);
+productRouter.put("/actualizar/:id", auth("admin"), upload.single("imagenUrl"),putProduct);
 
 //3. Ruta para el DELETE
 productRouter.delete("/eliminar/:id", auth("admin"),deleteProductById);

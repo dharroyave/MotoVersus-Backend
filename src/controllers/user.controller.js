@@ -4,19 +4,23 @@ import bcryptjs from "bcryptjs";
 // 1. Crear un usuario (POST)
 export const potUsers = async (request, response) => {
     try {
-        const { nombre, apellido, user, contrasena, correo, numero, fotoPerfil, role } = request.body;
-        const codedPassword = await bcryptjs.hash(contrasena, 10);
+        //validar que venga el archivo enviado por el cliente
+        if (!request.file) {
+            return response.status(400).json({
+                "mensaje": "Debes subir un archivo de imagen"
+            });
+        };
 
-        await usuarioModel.create({
-            nombre,
-            apellido,
-            user,
+        const codedPassword = await bcryptjs.hash(request.body.contrasena, 10);
+
+        // crear el nuevo usuario con la contraseña encriptada
+        const newUser = {
+            ...request.body,
             contrasena: codedPassword,
-            correo,
-            numero,
-            fotoPerfil,
-            role
-        })
+            fotoPerfil: `/uploads/${request.file.filename}`,
+        };
+
+        await usuarioModel.create(newUser)
         return response.status(201).json({
             "mensaje": "Usuario creado correctamente"
         });
@@ -49,7 +53,7 @@ export const getAllUsers = async (request, response) => {
 //2.1 Obtener un usuario por ID (GET)
 export const getUserById = async (request, response) => {
     try {
-        const idForSearch = request.params.id;  
+        const idForSearch = request.params.id;
         const userById = await usuarioModel.findById(idForSearch).select('-contrasena');
         return response.status(200).json({
             "mensaje": "Petición Exitosa",
@@ -65,10 +69,24 @@ export const getUserById = async (request, response) => {
 // 3. Actualizar un usuario por ID (PUT)
 export const putUserById = async (request, response) => {
     try {
+        //validar que venga el archivo enviado por el cliente
+        if (!request.file) {
+            return response.status(400).json({
+                "mensaje": "Debes subir un archivo de imagen"
+            });
+        };
+
+        const codedPassword = await bcryptjs.hash(request.body.contrasena, 10);
+
+        // crear el nuevo usuario con la contraseña encriptada
+        const newUser = {
+            ...request.body,
+            contrasena: codedPassword,
+            fotoPerfil: `/uploads/${request.file.filename}`,
+        };
+
         const idForUpdate = request.params.id;
-        const { nombre, apellido, user, contrasena, correo, numero, fotoPerfil,role } = request.body;
-        const codedPassword = await bcryptjs.hash(contrasena, 10);
-        await usuarioModel.findByIdAndUpdate(idForUpdate, {nombre, apellido, user, contrasena: codedPassword, correo, numero, fotoPerfil,role});
+        await usuarioModel.findByIdAndUpdate(idForUpdate, { nombre, apellido, user, contrasena: codedPassword, correo, numero, fotoPerfil, role });
         return response.status(200).json({
             "mensaje": "Usuario actualizado correctamente"
         });

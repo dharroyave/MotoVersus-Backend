@@ -69,31 +69,50 @@ export const getUserById = async (request, response) => {
 // 3. Actualizar un usuario por ID (PUT)
 export const putUserById = async (request, response) => {
     try {
-        //validar que venga el archivo enviado por el cliente
+        const idForUpdate = request.params.id;
+
+        // Validar archivo
         if (!request.file) {
             return response.status(400).json({
-                "mensaje": "Debes subir un archivo de imagen"
+                mensaje: "Debes subir un archivo de imagen"
             });
-        };
+        }
 
-        const codedPassword = await bcryptjs.hash(request.body.contrasena, 10);
+        // Encriptar contraseña si se envió
+        let codedPassword;
+        if (request.body.contrasena) {
+            codedPassword = await bcryptjs.hash(request.body.contrasena, 10);
+        }
 
-        // crear el nuevo usuario con la contraseña encriptada
-        const newUser = {
+        // Convertir numero a Number si viene
+        let numero = request.body.numero !== undefined ? Number(request.body.numero) : undefined;
+        if (numero !== undefined && isNaN(numero)) {
+            return response.status(400).json({ mensaje: "El campo 'numero' debe ser un número válido" });
+        }
+
+        // Crear objeto actualizado
+        const updatedUser = {
             ...request.body,
+            numero,
             contrasena: codedPassword,
-            fotoPerfil: `/uploads/${request.file.filename}`,
+            fotoPerfil: `/uploads/${request.file.filename}`
         };
 
-        const idForUpdate = request.params.id;
-        await usuarioModel.findByIdAndUpdate(idForUpdate, { nombre, apellido, user, contrasena: codedPassword, correo, numero, fotoPerfil, role });
+        // Eliminar campos undefined para no sobrescribir
+        Object.keys(updatedUser).forEach(
+            key => updatedUser[key] === undefined && delete updatedUser[key]
+        );
+
+        await usuarioModel.findByIdAndUpdate(idForUpdate, updatedUser);
+
         return response.status(200).json({
-            "mensaje": "Usuario actualizado correctamente"
+            mensaje: "Usuario actualizado correctamente"
         });
+
     } catch (error) {
         return response.status(400).json({
-            "mensaje": "ocurrio un error al actualizar usuario",
-            "error": error.message || error
+            mensaje: "ocurrio un error al actualizar usuario",
+            error: error.message || error
         });
     }
 };
